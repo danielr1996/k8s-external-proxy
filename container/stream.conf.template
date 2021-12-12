@@ -1,0 +1,10 @@
+stream{
+    server {
+        listen 80;
+        proxy_pass external;
+    }
+    
+    upstream external {
+        server ${DESTINATION};
+    }
+}
