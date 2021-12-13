@@ -1,0 +1,15 @@
+http{
+    upstream external {
+            server ${DESTINATION};
+    }
+
+    server{
+        listen 80;
+
+        location / {
+            proxy_pass https://external;
+            proxy_ssl_verify off;
+            proxy_next_upstream error http_502;
+        }
+    }
+}

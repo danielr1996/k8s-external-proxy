@@ -1,14 +1,22 @@
 version: "3.9"
 services:
-  proxy:
-    image: ghcr.io/danielr1996/k8s-external-proxy
+  proxmox:
+    image: proxy
     ports:
-      - "8123:80"
+      - "8081:80"
+    environment:
+      DESTINATION: "10.0.0.8:8006"
+      MODE: HTTP
+  openwrt:
+    image: proxy
+    ports:
+      - "8082:80"
+    environment:
+      DESTINATION: "10.0.0.3:443"
+      MODE: HTTP
+  ha:
+    image: proxy
+    ports:
+      - "8083:80"
     environment:
       DESTINATION: "10.0.0.7:8123"
-  proxy2:
-    image: ghcr.io/danielr1996/k8s-external-proxy
-    ports:
-      - "8085:80"
-    environment:
-      DESTINATION: "10.0.0.1:80"
